@@ -3,17 +3,10 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
   annotations:
-<<<<<<< Updated upstream
-    alm-examples: '[{"apiVersion": "crdb.cockroachlabs.com/v1alpha1", "kind": "CrdbCluster", "metadata": {"name": "crdb-tls-enabled"}, "spec": {"dataStore": {"emptyDir": {}}, "tlsEnabled": "true", "nodes": "3", "minAvailable": "2"}}]'
-    capabilities: Basic Install
-    categories: Database
-    containerImage: registry.connect.redhat.com/cockroachdb/cockroachdb-operator:v1.0.0-rc.0
-=======
-    alm-examples: '[{"apiVersion": "crdb.cockroachlabs.com/v1alpha1", "kind": "CrdbCluster", "metadata": {"name": "crdb-tls-enabled"}, "spec": {"dataStore": {"emptyDir": {}}, "tlsEnabled": "true", "image": {"pullPolicy": "Always"}, "nodes": "3", "minAvailable": "2"}}]'
+    alm-examples: '[{"apiVersion": "crdb.cockroachlabs.com/v1alpha1", "kind": "CrdbCluster", "metadata": {"name": "crdb-tls-enabled"}, "spec": {"dataStore": {"emptyDir": {}}, "tlsEnabled": true, "nodes": 3, "minAvailable": 2}}]'
     capabilities: Basic Install
     categories: Database
     containerImage: registry.connect.redhat.com/cockroachdb/cockroachdb-operator:v1.0.0-rc.1
->>>>>>> Stashed changes
     createdAt: 2020-08-24T10-10-10Z
     description: CockroachDB Operator
     repository: https://github.com/cockroachdb/cockroach-operator
@@ -151,6 +144,14 @@ spec:
           - update
           - watch
         - apiGroups:
+          - crdb.cockroachlabs.com
+          resources:
+          - crdbclusters/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
           - policy
           resources:
           - poddisruptionbudgets
@@ -162,6 +163,12 @@ spec:
           - patch
           - update
           - watch
+        - apiGroups:
+          - policy
+          resources:
+          - poddisruptionbudgets/status
+          verbs:
+          - get
         - apiGroups:
           - crdb.cockroachlabs.com
           resources:
@@ -332,18 +339,14 @@ spec:
                   value: cockroachdb
                 - name: RELATED_IMAGE_COCKROACH
                   value: "registry.connect.redhat.com/cockroachdb/cockroach:v20.1.4"
-<<<<<<< Updated upstream
-                image: registry.connect.redhat.com/cockroachdb/cockroachdb-operator:v1.0.0-rc.0
-=======
                 image: registry.connect.redhat.com/cockroachdb/cockroachdb-operator:v1.0.0-rc.1
->>>>>>> Stashed changes
                 imagePullPolicy: IfNotPresent
                 name: cockroach-operator
                 resources:
                   requests:
                     cpu: 10m
                     memory: 32Mi
-              serviceAccountName: cockroach-operator-default
+              serviceAccountName: cockroach-operator-role
     strategy: deployment
   installModes:
   - supported: true

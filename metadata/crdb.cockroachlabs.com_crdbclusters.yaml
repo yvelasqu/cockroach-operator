@@ -332,7 +332,6 @@ spec:
                 usage Default: false'
               type: boolean
           required:
-          - image
           - nodes
           type: object
         status:
