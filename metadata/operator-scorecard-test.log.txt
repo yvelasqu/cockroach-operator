@@ -1,0 +1,1295 @@
+===== Test: operator-scorecard-tests =====
+
+ The operator FAILED the scorecard criteria of passing all basic tests.
+
+ 
+
+========== Output of CrdbCluster-crdb-tls-enabled-scorecard-results.json =============
+
+{
+  "kind": "ScorecardOutput",
+  "apiVersion": "osdk.openshift.io/v1alpha2",
+  "metadata": {
+    "creationTimestamp": null
+  },
+  "log": "time=\"2020-09-01T22:55:53Z\" level=info msg=\"Using config file: /home/jenkins/agent/workspace/cvp-isv-operator-metadata-validation-test/osdk-scorecard.yml\"\n",
+  "results": [
+    {
+      "name": "Spec Block Exists",
+      "description": "Custom Resource has a Spec Block",
+      "labels": {
+        "necessity": "required",
+        "suite": "basic",
+        "test": "checkspectest"
+      },
+      "state": "pass"
+    },
+    {
+      "name": "Status Block Exists",
+      "description": "Custom Resource has a Status Block",
+      "labels": {
+        "necessity": "required",
+        "suite": "basic",
+        "test": "checkstatustest"
+      },
+      "state": "fail",
+      "suggestions": [
+        "Add a 'status' field to your Custom Resource"
+      ]
+    },
+    {
+      "name": "Writing into CRs has an effect",
+      "description": "A CR sends PUT/POST requests to the API server to modify resources in response to spec block changes",
+      "labels": {
+        "necessity": "required",
+        "suite": "basic",
+        "test": "writingintocrshaseffecttest"
+      },
+      "state": "pass"
+    },
+    {
+      "name": "Spec fields with descriptors",
+      "description": "All spec fields have matching descriptors in the CSV",
+      "labels": {
+        "necessity": "required",
+        "suite": "olm",
+        "test": "specdescriptorstest"
+      },
+      "state": "fail",
+      "suggestions": [
+        "Add a spec descriptor for dataStore",
+        "Add a spec descriptor for minAvailable",
+        "Add a spec descriptor for nodes",
+        "Add a spec descriptor for tlsEnabled"
+      ]
+    },
+    {
+      "name": "Status fields with descriptors",
+      "description": "All status fields have matching descriptors in the CSV",
+      "labels": {
+        "necessity": "required",
+        "suite": "olm",
+        "test": "statusdescriptorstest"
+      },
+      "state": "pass"
+    },
+    {
+      "name": "Bundle Validation Test",
+      "description": "Validates bundle contents",
+      "labels": {
+        "necessity": "required",
+        "suite": "olm",
+        "test": "bundlevalidationtest"
+      },
+      "state": "fail",
+      "errors": [
+        "unable to find the OLM 'bundle' directory which is required for this test"
+      ]
+    },
+    {
+      "name": "Provided APIs have validation",
+      "description": "All CRDs have an OpenAPI validation subsection",
+      "labels": {
+        "necessity": "required",
+        "suite": "olm",
+        "test": "crdshavevalidationtest"
+      },
+      "state": "fail",
+      "suggestions": [
+        "Add CRD validation for spec field `minAvailable` in CrdbCluster/v1alpha1"
+      ]
+    },
+    {
+      "name": "Owned CRDs have resources listed",
+      "description": "All Owned CRDs contain a resources subsection",
+      "labels": {
+        "necessity": "required",
+        "suite": "olm",
+        "test": "crdshaveresourcestest"
+      },
+      "state": "fail",
+      "suggestions": [
+        "If it would be helpful to an end-user to understand or troubleshoot your CR, consider adding resources [statefulsets/v1 poddisruptionbudgets/v1beta1 secrets/v1 certificatesigningrequests/v1beta1 approval/v1beta1 configmaps/v1 crdbclusters/v1alpha1 services/v1] to the resources section for owned CRD CrdbCluster"
+      ]
+    }
+  ]
+}
+ 
+
+======== Debug output of the operator container =========
+
+ 
+
+I0901 22:53:47.341174       1 request.go:621] Throttling request took 1.041103833s, request: GET:http://eyJhcGlWZXJzaW9uIjoiIiwia2luZCI6IiIsIm5hbWUiOiJzY29yZWNhcmQiLCJ1aWQiOiIiLCJOYW1lc3BhY2UiOiJ0ZXN0LW9wZXJhdG9yIn0K@localhost:8889/apis/operators.coreos.com/v1?timeout=32s
+2020-09-01T22:53:48.495Z	INFO	controller-runtime.metrics	metrics server is starting to listen	{"addr": ":8080"}
+2020-09-01T22:53:48.496Z	INFO	setup	starting manager
+2020-09-01T22:53:48.496Z	INFO	controller-runtime.manager	starting metrics server	{"path": "/metrics"}
+2020-09-01T22:53:48.496Z	INFO	controller-runtime.controller	Starting EventSource	{"controller": "crdbcluster", "source": "kind source: /, Kind="}
+2020-09-01T22:53:48.596Z	INFO	controller-runtime.controller	Starting EventSource	{"controller": "crdbcluster", "source": "kind source: /, Kind="}
+2020-09-01T22:53:48.697Z	INFO	controller-runtime.controller	Starting EventSource	{"controller": "crdbcluster", "source": "kind source: /, Kind="}
+2020-09-01T22:53:48.797Z	INFO	controller-runtime.controller	Starting EventSource	{"controller": "crdbcluster", "source": "kind source: /, Kind="}
+2020-09-01T22:53:48.898Z	INFO	controller-runtime.controller	Starting Controller	{"controller": "crdbcluster"}
+2020-09-01T22:53:48.898Z	INFO	controller-runtime.controller	Starting workers	{"controller": "crdbcluster", "worker count": 1}
+2020-09-01T22:55:55.684Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:55:55.684Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:55:56.584Z	INFO	action	issuing certificate	{"action": "prepare_tls", "csr": "node.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:55:56.684Z	INFO	action	submitting a CSR	{"action": "prepare_tls", "csr": "node.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:55:58.787Z	INFO	controller.CrdbCluster	requeueing	{"CrdbCluster": "test-operator/crdb-tls-enabled", "reason": "client CSR is not ready, giving it some time"}
+2020-09-01T22:56:03.787Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:03.787Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:03.787Z	INFO	action	issuing certificate	{"action": "prepare_tls", "csr": "node.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:56:03.787Z	INFO	action	approving CSR	{"action": "prepare_tls", "csr": "node.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:56:03.795Z	INFO	controller.CrdbCluster	requeueing	{"CrdbCluster": "test-operator/crdb-tls-enabled", "reason": "client CSR is not ready, giving it some time"}
+2020-09-01T22:56:08.796Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:08.796Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:08.796Z	INFO	action	issuing certificate	{"action": "prepare_tls", "csr": "node.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:56:08.796Z	INFO	action	the CSR has been approved	{"action": "prepare_tls", "csr": "node.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:56:08.835Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:08.835Z	INFO	action	issuing certificate	{"action": "prepare_tls", "csr": "root.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:56:08.835Z	INFO	action	submitting a CSR	{"action": "prepare_tls", "csr": "root.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:56:11.096Z	INFO	controller.CrdbCluster	requeueing	{"CrdbCluster": "test-operator/crdb-tls-enabled", "reason": "client CSR is not ready, giving it some time"}
+2020-09-01T22:56:16.096Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:16.096Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:16.096Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:16.096Z	INFO	action	issuing certificate	{"action": "prepare_tls", "csr": "root.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:56:16.096Z	INFO	action	approving CSR	{"action": "prepare_tls", "csr": "root.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:56:16.103Z	INFO	controller.CrdbCluster	requeueing	{"CrdbCluster": "test-operator/crdb-tls-enabled", "reason": "client CSR is not ready, giving it some time"}
+2020-09-01T22:56:21.104Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:21.104Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:21.104Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:21.104Z	INFO	action	issuing certificate	{"action": "prepare_tls", "csr": "root.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:56:21.104Z	INFO	action	the CSR has been approved	{"action": "prepare_tls", "csr": "root.crdb-tls-enabled.test-operator.svc.cluster.local"}
+2020-09-01T22:56:21.116Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:21.188Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:21.188Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:22.189Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:22.189Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:22.189Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:22.189Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:22.269Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:22.269Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:23.270Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:23.270Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:23.270Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:23.270Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:23.274Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:23.274Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:24.274Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:24.274Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:24.274Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:24.274Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:24.279Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:24.280Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:25.280Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:25.281Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:25.281Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:25.281Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:25.284Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:25.284Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:26.285Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:26.285Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:26.285Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:26.285Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:26.288Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:26.288Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:27.288Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:27.288Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:27.289Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:27.289Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:27.292Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:27.292Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:28.292Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:28.292Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:28.293Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:28.293Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:28.296Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:28.296Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:29.297Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:29.297Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:29.297Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:29.297Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:29.301Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:29.301Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:30.581Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:30.581Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:30.581Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:30.581Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:30.588Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:30.588Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:33.148Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:33.148Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:33.148Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:33.148Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:33.152Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:33.152Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:38.272Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:38.273Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:38.273Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:38.273Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:38.277Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:38.277Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:48.517Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:48.517Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:48.517Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:48.517Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:48.522Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:48.522Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:55.887Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:55.887Z	ERROR	controller.CrdbCluster	failed to retrieve CrdbCluster resource	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "CrdbCluster.crdb.cockroachlabs.com \"crdb-tls-enabled\" not found"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:81
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:55.887Z	DEBUG	controller-runtime.controller	Successfully Reconciled	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:57.498Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:57.498Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:57.498Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:57.498Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:57.564Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:57.565Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:58.565Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:58.565Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:58.565Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:58.565Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:58.569Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:58.569Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:59.569Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:59.569Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:59.569Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:59.569Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:56:59.573Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:56:59.573Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:00.574Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:00.574Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:00.574Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:00.574Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:00.577Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:00.577Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:01.577Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:01.577Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:01.577Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:01.577Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:01.581Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:01.581Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:02.581Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:02.581Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:02.581Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:02.581Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:02.585Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:02.585Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:03.585Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:03.585Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:03.585Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:03.585Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:03.590Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:03.590Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:04.590Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:04.590Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:04.590Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:04.591Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:04.594Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:04.594Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:05.594Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:05.595Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:05.595Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:05.595Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:05.598Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:05.598Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:06.878Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:06.878Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:06.878Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:06.878Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:06.881Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:06.882Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:09.442Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:09.442Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:09.442Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:09.442Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:09.446Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:09.446Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:14.566Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:14.567Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:14.567Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:14.567Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:14.570Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:14.571Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:24.811Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:24.811Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:24.811Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:24.811Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:24.877Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:24.877Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:45.357Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:45.357Z	INFO	action	requesting node certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:45.358Z	INFO	action	requesting client certificate	{"action": "prepare_tls", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:45.358Z	INFO	action	reconciling resources	{"action": "deploy", "CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:45.366Z	ERROR	controller.CrdbCluster	action failed	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:108
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:45.366Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled", "error": "failed to reconcile discovery service: services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>", "errorVerbose": "services \"crdb-tls-enabled\" is forbidden: cannot set blockOwnerDeletion if an ownerReference refers to a resource you can't set finalizers on: , <nil>\nfailed to reconcile discovery service\ngithub.com/cockroachdb/cockroach-operator/pkg/actor.deploy.Act\n\tpkg/actor/deploy.go:65\ngithub.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile\n\tpkg/controller/cluster_controller.go:95\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker\n\texternal/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:155\nk8s.io/apimachinery/pkg/util/wait.BackoffUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:156\nk8s.io/apimachinery/pkg/util/wait.JitterUntil\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:133\nk8s.io/apimachinery/pkg/util/wait.Until\n\texternal/io_k8s_apimachinery/pkg/util/wait/wait.go:90\nruntime.goexit\n\tsrc/runtime/asm_amd64.s:1373"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:57.740Z	INFO	controller.CrdbCluster	reconciling CockroachDB cluster	{"CrdbCluster": "test-operator/crdb-tls-enabled"}
+2020-09-01T22:57:57.740Z	ERROR	controller.CrdbCluster	failed to retrieve CrdbCluster resource	{"CrdbCluster": "test-operator/crdb-tls-enabled", "error": "CrdbCluster.crdb.cockroachlabs.com \"crdb-tls-enabled\" not found"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	external/com_github_go_logr_zapr/zapr.go:128
+github.com/cockroachdb/cockroach-operator/pkg/controller.(*ClusterReconciler).Reconcile
+	pkg/controller/cluster_controller.go:81
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	external/io_k8s_sigs_controller_runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	external/io_k8s_apimachinery/pkg/util/wait/wait.go:90
+2020-09-01T22:57:57.740Z	DEBUG	controller-runtime.controller	Successfully Reconciled	{"controller": "crdbcluster", "request": "test-operator/crdb-tls-enabled"} 
+
+======== Error output of the operator scorecard test =========
+
+ 
+
+ Output of crdb-tls-enabled-scorecard-errors.txt: 
+
+time="2020-09-01T22:55:53Z" level=debug msg="Debug logging is set"
+
+
+
+-------------------
+Execution Reference:
+
+-> /cvp/cvp-isv-operator-metadata-validation-test/ospid-cf721588-ad8a-4618-938c-5191c5e10ae4-7b3ae9ff-745a-4c85-9654-1ec1fca764cc/7b3ae9ff-745a-4c85-9654-1ec1fca764cc/
