@@ -1,0 +1,9 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: cockroach-test
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  displayName: Cockroach Test
+  image: quay.io/keith_mcclellan/cockroach-operator:index-latest
