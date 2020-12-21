@@ -117,7 +117,7 @@ type ClusterCondition struct {
 // +kubebuilder:resource:categories=all;cockroachdb,shortName=crdb
 // +kubebuilder:subresource:status
 // +operator-sdk:csv:customresourcedefinitions:displayName="CoachroachDB Operator",resources={{StatefulSet,v1,cockroach-operator},{Service,v1,cockroach-operator}}
-// CrdbCluster is the CRD for the cockroachDB clusters API
+// CrdbCluster is the CRD for the cockroachDB clusters API 
 type CrdbCluster struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
