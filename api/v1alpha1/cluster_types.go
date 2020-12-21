@@ -131,7 +131,7 @@ type CrdbCluster struct {
 // +kubebuilder:object:generate=true
 // +k8s:openapi-gen=true
 type PodImage struct {
-	// Container image with supported CockroachDB version.
+	// Container image with supported CockroachDB version. 
 	// This defaults to the version pinned to the operator and requires a full container and tag/sha name.
 	// For instance: cockroachdb/cockroachdb:v20.1
 	// +required
