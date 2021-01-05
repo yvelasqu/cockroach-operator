@@ -52,6 +52,9 @@ type upgrade struct {
 func (up *upgrade) Handles(conds []api.ClusterCondition) bool {
 	return condition.False(api.NotInitializedCondition, conds)
 }
+func (up *upgrade) GetConditionType() api.ClusterConditionType {
+	return api.UpgradeCondition
+}
 
 func (up *upgrade) Act(ctx context.Context, cluster *resource.Cluster) error {
 	log := up.log.WithValues("CrdbCluster", cluster.ObjectKey())

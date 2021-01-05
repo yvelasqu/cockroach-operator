@@ -22,6 +22,8 @@ type ClusterConditionType string
 const (
 	//NotInitializedCondition string
 	NotInitializedCondition ClusterConditionType = "NotInitialized"
+	//DeployCondition string
+	DeployCondition ClusterConditionType = "Deploy"
 	//DecommissionCondition string
 	DecommissionCondition ClusterConditionType = "Decommission"
 	//InitializeCondition string
@@ -30,4 +32,6 @@ const (
 	RequestCertCondition ClusterConditionType = "RequestCert"
 	//UpgradeCondition string
 	UpgradeCondition ClusterConditionType = "Upgrade"
+	//PartitionUpdateCondition string
+	PartitionUpdateCondition ClusterConditionType = "PartitionUpdate"
 )

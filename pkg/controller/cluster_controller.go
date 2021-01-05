@@ -89,6 +89,12 @@ func (r *ClusterReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	}
 
 	cluster := resource.NewCluster(cr)
+	defer func() {
+		if err := r.Client.Status().Update(ctx, cluster.Unwrap()); err != nil {
+			log.Error(err, "failed to update cluster status")
+			return
+		}
+	}()
 
 	// Save context cancellation function for actors to call if needed
 	ctx = actor.ContextWithCancelFn(ctx, cancel)
@@ -99,6 +105,7 @@ func (r *ClusterReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		// Ensure the action is applicable to the current resource state
 		if a.Handles(cluster.Status().Conditions) {
 			if err := a.Act(ctx, &cluster); err != nil {
+				cluster.SetFalse(a.GetConditionType())
 				// Short pause
 				if notReadyErr, ok := err.(actor.NotReadyErr); ok {
 					log.Info("requeueing", "reason", notReadyErr.Error())
@@ -137,10 +144,10 @@ func (r *ClusterReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		return requeueImmediately()
 	}
 
-	if err := r.Client.Status().Update(ctx, cluster.Unwrap()); err != nil {
-		log.Error(err, "failed to update cluster status")
-		return requeueIfError(err)
-	}
+	// if err := r.Client.Status().Update(ctx, cluster.Unwrap()); err != nil {
+	// 	log.Error(err, "failed to update cluster status")
+	// 	return requeueIfError(err)
+	// }
 
 	log.Info("reconciliation completed")
 	return noRequeue()

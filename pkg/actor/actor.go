@@ -52,6 +52,7 @@ func (e PermanentErr) Error() string {
 type Actor interface {
 	Handles([]api.ClusterCondition) bool
 	Act(context.Context, *resource.Cluster) error
+	GetConditionType() api.ClusterConditionType
 }
 
 // NewOperatorActions creates a slice of actors that control the actions or actors for the operator.

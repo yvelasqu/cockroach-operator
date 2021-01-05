@@ -53,6 +53,10 @@ type partitionedUpdate struct {
 	config *rest.Config
 }
 
+func (up *partitionedUpdate) GetConditionType() api.ClusterConditionType {
+	return api.PartitionUpdateCondition
+}
+
 func (up *partitionedUpdate) Handles(conds []api.ClusterCondition) bool {
 	return condition.False(api.NotInitializedCondition, conds)
 }

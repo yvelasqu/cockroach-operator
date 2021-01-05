@@ -51,7 +51,9 @@ type requestCert struct {
 func (rc *requestCert) Handles(conds []api.ClusterCondition) bool {
 	return condition.True(api.NotInitializedCondition, conds)
 }
-
+func (rc *requestCert) GetConditionType() api.ClusterConditionType {
+	return api.RequestCertCondition
+}
 func (rc *requestCert) Act(ctx context.Context, cluster *resource.Cluster) error {
 	log := rc.log.WithValues("CrdbCluster", cluster.ObjectKey())
 

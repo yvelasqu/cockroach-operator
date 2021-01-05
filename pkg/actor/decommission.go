@@ -52,11 +52,14 @@ type decommission struct {
 	config *rest.Config
 }
 
-func (d decommission) Handles(conds []api.ClusterCondition) bool {
+func (d *decommission) Handles(conds []api.ClusterCondition) bool {
 	return condition.False(api.NotInitializedCondition, conds) && utilfeature.DefaultMutableFeatureGate.Enabled(features.Decommission)
 }
+func (d *decommission) GetConditionType() api.ClusterConditionType {
+	return api.DecommissionCondition
+}
 
-func (d decommission) Act(ctx context.Context, cluster *resource.Cluster) error {
+func (d *decommission) Act(ctx context.Context, cluster *resource.Cluster) error {
 	log := d.log.WithValues("CrdbCluster", cluster.ObjectKey())
 	log.Info("check decommission oportunities")
 

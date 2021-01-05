@@ -50,6 +50,9 @@ type initialize struct {
 func (init initialize) Handles(conds []api.ClusterCondition) bool {
 	return condition.True(api.NotInitializedCondition, conds)
 }
+func (init *initialize) GetConditionType() api.ClusterConditionType {
+	return api.InitializeCondition
+}
 
 func (init initialize) Act(ctx context.Context, cluster *resource.Cluster) error {
 	log := init.log.WithValues("CrdbCluster", cluster.ObjectKey())

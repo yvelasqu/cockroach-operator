@@ -43,6 +43,9 @@ type deploy struct {
 func (d deploy) Handles(conds []api.ClusterCondition) bool {
 	return condition.False(api.NotInitializedCondition, conds) || condition.True(api.NotInitializedCondition, conds)
 }
+func (d *deploy) GetConditionType() api.ClusterConditionType {
+	return api.DeployCondition
+}
 
 func (d deploy) Act(ctx context.Context, cluster *resource.Cluster) error {
 	log := d.log.WithValues("CrdbCluster", cluster.ObjectKey())
